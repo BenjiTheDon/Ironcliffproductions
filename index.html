@@ -87,27 +87,26 @@
     .section h2{font-family: "Playfair Display", serif; font-weight:800; letter-spacing:.2px; font-size: clamp(26px, 4.5vw, 44px); margin:0 0 18px}
     .section p.lead{color:var(--muted); margin:0 0 24px}
 
-    .grid{
-      display:grid; gap: var(--grid-gap);
-      grid-template-columns: repeat(12, 1fr);
-    }
-    .card{
-      grid-column: span 12;
-      background: var(--card);
-      border:1px solid rgb(255 255 255 / 7%);
-      border-radius: 18px; overflow:hidden; position:relative;
-    }
-    @media (min-width: 640px){ .card{ grid-column: span 6; } }
-    @media (min-width: 980px){ .card{ grid-column: span 4; } }
+    /* Horizontal scroll slate */
+    .hscroll{display:flex; gap:var(--grid-gap); overflow-x:auto; padding-bottom:10px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch}
+    .hscroll:focus-visible{outline:2px solid var(--accent); outline-offset:4px}
+    .hscroll::-webkit-scrollbar{height:10px}
+    .hscroll::-webkit-scrollbar-thumb{background:#1f1f24; border-radius:10px}
+    .hscroll::-webkit-scrollbar-track{background:#0e0e12}
 
-    .poster{aspect-ratio: 3/4; width:100%; object-fit:cover; display:block; filter:saturate(105%)}
-    .card-body{padding:14px 14px 16px}
+    .hcard{flex:0 0 auto; width: clamp(160px, 22vw, 260px); background: var(--card); border:1px solid rgb(255 255 255 / 7%); border-radius: 16px; overflow:hidden; position:relative; scroll-snap-align:start}
+    .hcard .poster{aspect-ratio: 3/4; width:100%; object-fit:cover; display:block; filter:saturate(105%)}
+    .hcard .card-body{padding:10px 12px}
+    .hcard h3{margin:8px 0 2px; font-size: clamp(14px, 1.8vw, 18px)}
     .tag{display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.3px; text-transform:uppercase; color:#f3f3f6; background:#1e1e22; border:1px solid rgb(255 255 255 / 10%); border-radius:999px; padding:6px 10px}
     .tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent)}
-    .card h3{margin:10px 0 2px; font-size: clamp(16px, 2.2vw, 22px)}
-    .meta{color:var(--muted); font-size:13px}
+    .meta{color:var(--muted); font-size:12px}
 
     /* About */
+    .about{display:grid; gap:var(--grid-gap); grid-template-columns: 1.2fr 2fr; align-items:start}
+    @media (max-width:900px){ .about{grid-template-columns: 1fr;}}
+    .about .panel{background:var(--card); border:1px solid rgb(255 255 255 / 7%); border-radius:18px; padding:22px}
+
     .about{display:grid; gap:var(--grid-gap); grid-template-columns: 1.2fr 2fr; align-items:start}
     @media (max-width:900px){ .about{grid-template-columns: 1fr;}}
     .about .panel{background:var(--card); border:1px solid rgb(255 255 255 / 7%); border-radius:18px; padding:22px}
@@ -176,21 +175,21 @@
     <section id="slate" class="section">
       <div class="container">
         <h2>Film and TV Slate</h2>
-        <p class="lead">A selection of current and upcoming titles. For screeners or rights inquiries, reach out below.</p>
-        <div class="grid">
+        <p class="lead">A selection of current and upcoming titles. Swipe or scroll horizontally to preview — tap any title for details.</p>
+        <div class="hscroll" role="list" aria-label="Upcoming projects">
           <!-- Card 1 -->
-          <article class="card">
+          <article class="hcard" role="listitem">
             <a href="#" aria-label="Open Stream or Scream project">
               <img class="poster" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Stream or Scream key art placeholder" />
             </a>
             <div class="card-body">
               <span class="tag">In Post</span>
               <h3>Stream or Scream</h3>
-              <div class="meta">Short film · Written and directed by Manajorie Murry · Executive Producer Eme “Benji” Matthew</div>
+              <div class="meta">Short film · Written & directed by Manajorie Murry</div>
             </div>
           </article>
           <!-- Card 2 -->
-          <article class="card">
+          <article class="hcard" role="listitem">
             <a href="#" aria-label="Open IronCliff Originals project">
               <img class="poster" src="https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1200&auto=format&fit=crop" alt="IronCliff Originals placeholder" />
             </a>
@@ -201,7 +200,7 @@
             </div>
           </article>
           <!-- Card 3 -->
-          <article class="card">
+          <article class="hcard" role="listitem">
             <a href="#" aria-label="Open Untitled Feature project">
               <img class="poster" src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop" alt="Untitled Feature placeholder" />
             </a>
@@ -226,9 +225,9 @@
           <h2>Access and Press</h2>
           <p class="lead">For screeners, festivals, and brand partnerships contact the team below.</p>
           <ul>
-            <li>General · <a href="mailto:digitaldonacademy@gmail.com">digitaldonacademy@gmail.com</a></li>
-            <li>Screeners · <a href="mailto:digitaldonacademy@gmail.com">digitaldonacademy@gmail.com</a></li>
-            <li>Press · <a href="mailto:digitaldonacademy@gmail.com">digitaldonacademy@gmail.com</a></li>
+            <li>General · <a href="mailto:hello@ironcliff.pro">hello@ironcliff.pro</a></li>
+            <li>Screeners · <a href="mailto:screeners@ironcliff.pro">screeners@ironcliff.pro</a></li>
+            <li>Press · <a href="mailto:press@ironcliff.pro">press@ironcliff.pro</a></li>
           </ul>
         </div>
       </div>
