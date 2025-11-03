@@ -29,14 +29,19 @@
     }
     * { box-sizing: border-box }
     body {
-      margin: 0; background: var(--bg); color: var(--fg);
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
       font-family: YZY, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.5;
     }
     a { color: inherit; text-decoration: none }
 
+    /* Header */
     .site-header {
-      position: sticky; top: 0; z-index: 40;
+      position: sticky;
+      top: 0;
+      z-index: 40;
       backdrop-filter: blur(8px);
       background: rgb(11 11 12 / 70%);
       border-bottom: 1px solid rgb(255 255 255 / 6%);
@@ -51,35 +56,101 @@
       border: 1px solid rgb(255 255 255 / 8%);
     }
     .brand-mark:before {
-      content: ""; position: absolute; inset: 5px;
-      border: 2px solid var(--accent); border-radius: 4px;
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border: 2px solid var(--accent);
+      border-radius: 4px;
     }
+    .brand span { font-weight: 800; font-size: 18px }
 
+    /* Hero */
     .hero {
-      position: relative; min-height: 68svh; display: grid; place-items: end start;
-      background: radial-gradient(1200px 600px at 70% -10%, #1a1a1e 5%, transparent 60%), radial-gradient(1200px 600px at 0% 100%, #101013 0%, transparent 60%), linear-gradient(#0b0b0c, #0b0b0c);
+      position: relative;
+      min-height: 68svh;
+      display: grid;
+      place-items: end start;
+      background: radial-gradient(1200px 600px at 70% -10%, #1a1a1e 5%, transparent 60%),
+                  radial-gradient(1200px 600px at 0% 100%, #101013 0%, transparent 60%),
+                  linear-gradient(#0b0b0c, #0b0b0c);
       overflow: hidden;
     }
-    .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35 }
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .35;
+      filter: contrast(115%) saturate(105%);
+    }
     .hero-inner { position: relative; padding: clamp(48px, 8vw, 96px) 18px; }
     .hero-title { font-weight: 900; font-size: clamp(42px, 9vw, 92px); }
-    .btn { padding: 12px 16px; border-radius: 999px; font-weight: 800; background: linear-gradient(180deg, #1a1a1e, #121216); border: 1px solid rgb(255 255 255 / 12%) }
+    .hero-sub { color: var(--muted); max-width: 52ch; margin-top: 12px }
+    .btn {
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      background: linear-gradient(180deg, #1a1a1e, #121216);
+      border: 1px solid rgb(255 255 255 / 12%);
+    }
     .btn.primary { background: linear-gradient(180deg, #d63b3b, #9b1f1f) }
+
+    /* Sections */
+    .section { padding: clamp(42px, 6vw, 80px) 0; }
+    .section h2 { font-weight: 900; letter-spacing: .2px; font-size: clamp(26px, 4.5vw, 44px); margin: 0 0 18px }
+    .section p.lead { color: var(--muted); margin: 0 0 24px }
 
     /* Slate */
     .scroll-wrap { position: relative }
-    .hscroll { display: flex; gap: var(--grid-gap); overflow-x: auto; scroll-snap-type: x mandatory; }
-    .hcard { flex: 0 0 auto; width: clamp(140px, 18vw, 220px); background: var(--card); border: 1px solid rgb(255 255 255 / 7%); border-radius: 16px; overflow: hidden; position: relative; scroll-snap-align: start }
-    .poster { aspect-ratio: 3/4; width: 100%; object-fit: cover }
-    .overlay-title { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; background: linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0)); opacity: 0; transition: opacity .3s }
-    .overlay-title h4 { color: #fff; margin-bottom: 10px }
+    .hscroll {
+      display: flex; gap: var(--grid-gap);
+      overflow-x: auto; scroll-snap-type: x mandatory;
+    }
+    .hcard {
+      flex: 0 0 auto;
+      width: clamp(140px, 18vw, 220px);
+      background: var(--card);
+      border: 1px solid rgb(255 255 255 / 7%);
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      scroll-snap-align: start;
+    }
+    .poster { aspect-ratio: 3/4; width: 100%; object-fit: cover; }
+    .overlay-title {
+      position: absolute; inset: 0;
+      display: flex; align-items: flex-end; justify-content: center;
+      background: linear-gradient(to top, rgba(0,0,0,.7), rgba(0,0,0,0));
+      opacity: 0; transition: opacity .3s;
+    }
+    .overlay-title h4 { color: #fff; margin-bottom: 10px; }
     .hcard:hover .overlay-title { opacity: 1 }
+    .card-body { padding: 10px 12px }
+    .hcard h3 { margin: 8px 0 2px; font-size: clamp(13px, 1.6vw, 17px) }
+    .tag {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: .3px;
+      text-transform: uppercase; color: #f3f3f6; background: #1e1e22;
+      border: 1px solid rgb(255 255 255 / 10%); border-radius: 999px; padding: 6px 10px;
+    }
 
-    .arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; background: #121216; color: #fff; border-radius: 50%; width: 38px; height: 38px; border: none; cursor: pointer; }
+    .arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      z-index: 2; background: #121216; color: #fff;
+      border-radius: 50%; width: 38px; height: 38px;
+      border: none; cursor: pointer;
+    }
     .arrow.left { left: -4px }
     .arrow.right { right: -4px }
 
-    footer { border-top: 1px solid rgb(255 255 255 / 10%); color: var(--muted); font-size: 14px; padding: 18px 0 38px; text-align: center }
+    /* Footer */
+    footer {
+      border-top: 1px solid rgb(255 255 255 / 10%);
+      color: var(--muted);
+      font-size: 14px;
+      padding: 18px 0 38px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -90,26 +161,30 @@
     </div>
   </header>
 
+  <!-- Hero -->
   <section id="home" class="hero">
     <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1596461404969-9ae70d1b54fc?q=80&w=1600&auto=format&fit=crop"></video>
     <div class="hero-inner container">
       <h1 class="hero-title">Bold stories. Sharp edges.</h1>
-      <div class="hero-cta">
-        <a class="btn primary" href="#slate">Explore Slate</a>
-      </div>
+      <p class="hero-sub">IronCliff produces elevated, character-driven genre work across film, television, and digital. We develop original IP and collaborate with distinctive voices to create culturally resonant worlds.</p>
+      <a class="btn primary" href="#slate">Explore Slate</a>
     </div>
   </section>
 
+  <!-- Slate -->
   <main>
     <section id="slate" class="section">
       <div class="container">
         <h2>Film and TV Slate</h2>
+        <p class="lead">Swipe or scroll horizontally to preview — hover to reveal titles.</p>
         <div class="scroll-wrap">
           <button class="arrow left">‹</button>
           <div class="hscroll" id="slateScroll">
+
+            <!-- Stream or Scream -->
             <article class="hcard">
               <a href="#">
-                <img class="poster" src="posters/IMG_2427.png" alt="Stream or Scream Poster">
+                <img class="poster" src="posters/IMG_2427.png" alt="Stream or Scream Poster" />
                 <div class="overlay-title"><h4>Stream or Scream</h4></div>
               </a>
               <div class="card-body">
@@ -118,6 +193,33 @@
                 <div class="meta">Short film · Written & Directed by Manajorie Murry</div>
               </div>
             </article>
+
+            <!-- IronCliff Originals -->
+            <article class="hcard">
+              <a href="#">
+                <img class="poster" src="posters/ironcliff-originals.jpg" alt="IronCliff Originals Poster" />
+                <div class="overlay-title"><h4>IronCliff Originals</h4></div>
+              </a>
+              <div class="card-body">
+                <span class="tag">Development</span>
+                <h3>IronCliff Originals</h3>
+                <div class="meta">Limited series · Elevated supernatural thriller</div>
+              </div>
+            </article>
+
+            <!-- Untitled Feature -->
+            <article class="hcard">
+              <a href="#">
+                <img class="poster" src="posters/untitled-feature.jpg" alt="Untitled Feature Poster" />
+                <div class="overlay-title"><h4>Untitled Feature</h4></div>
+              </a>
+              <div class="card-body">
+                <span class="tag">Coming Soon</span>
+                <h3>Untitled Feature</h3>
+                <div class="meta">Feature film · Psychological horror</div>
+              </div>
+            </article>
+
           </div>
           <button class="arrow right">›</button>
         </div>
