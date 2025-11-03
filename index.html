@@ -6,16 +6,20 @@
   <title>IronCliff Productions</title>
   <meta name="description" content="IronCliff Productions — film, television, and digital. Visionary stories with a sharp edge." />
 
-  <!-- YZY font: replace URL with your hosted file if you have it -->
+  <!-- Headline font (YZY-style condensed) -->
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- OPTIONAL: If you obtain the exact YZY font file, upload it and uncomment below
   <style>
     @font-face {
       font-family: 'YZY';
-      src: url('/fonts/YZY.woff2') format('woff2'); /* update if needed */
+      src: url('/fonts/YZY.woff2') format('woff2');
       font-weight: 300 900;
       font-style: normal;
       font-display: swap;
     }
   </style>
+  -->
 
   <style>
     :root{
@@ -26,13 +30,18 @@
       --card:#111113;
       --grid-gap: clamp(14px, 1.8vw, 22px);
       --maxw: 1200px;
+
+      /* Fonts */
+      --font-head: "Oswald", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; /* swap to 'YZY' if you add it */
+      --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0; background:var(--bg); color:var(--fg);
-      font-family: YZY, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      line-height:1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+      font-family:var(--font-body);
+      line-height:1.5; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
     a{color:inherit; text-decoration:none}
     .container{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 18px}
@@ -44,17 +53,13 @@
       background: rgb(11 11 12 / 70%);
       border-bottom: 1px solid rgb(255 255 255 / 6%);
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand img{height:40px; width:auto; border-radius:6px}
+    .brand-name{
+      font-family:var(--font-head);
+      font-weight:700; letter-spacing:.5px; font-size:18px; line-height:1;
     }
-    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.6px}
-    .brand-mark{
-      width:28px; height:28px; border-radius:6px; background:linear-gradient(135deg, #2b2b31, #0f0f12);
-      position:relative; overflow:hidden; border:1px solid rgb(255 255 255 / 8%);
-    }
-    .brand-mark:before{content:""; position:absolute; inset:5px; border:2px solid var(--accent); border-radius:4px}
-    .brand span{font-weight:800; font-size:18px}
     .nav-menu{display:flex; gap:18px; font-weight:700}
     .nav a{opacity:.9}
     .nav a:hover{opacity:1}
@@ -68,14 +73,16 @@
                   linear-gradient(#0b0b0c, #0b0b0c);
       overflow:hidden;
     }
-    .hero video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.35; filter:contrast(115%) saturate(105%)}
+    .hero video{
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.35; filter:contrast(115%) saturate(105%);
+    }
     .hero .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgb(11 11 12 / 70%), rgb(11 11 12 / 10%))}
     .hero-inner{position:relative; padding: clamp(48px, 8vw, 96px) 18px; width:100%;}
     .hero-title{
-      max-width: 12ch;
-      font-weight:900; line-height:.95;
-      font-size: clamp(42px, 9vw, 92px);
-      letter-spacing: -0.5px;
+      font-family:var(--font-head);
+      max-width: 12ch; font-weight:700; line-height:.95;
+      font-size: clamp(42px, 9vw, 92px); letter-spacing:.5px;
+      text-transform:uppercase;
       text-shadow: 0 2px 24px rgb(0 0 0 / 55%);
     }
     .hero-sub{max-width: 52ch; margin-top: 16px; color:var(--muted); font-weight:500}
@@ -90,7 +97,10 @@
 
     /* Sections */
     .section{padding: clamp(42px, 6vw, 80px) 0;}
-    .section h2{font-weight:900; letter-spacing:.2px; font-size: clamp(26px, 4.5vw, 44px); margin:0 0 18px}
+    .section h2{
+      font-family:var(--font-head); text-transform:uppercase;
+      font-weight:700; letter-spacing:.5px; font-size: clamp(26px, 4.5vw, 44px); margin:0 0 18px
+    }
     .section p.lead{color:var(--muted); margin:0 0 24px}
 
     /* Slate */
@@ -108,20 +118,17 @@
       flex:0 0 auto; width: clamp(140px, 18vw, 220px);
       background: var(--card); border:1px solid rgb(255 255 255 / 7%);
       border-radius: 16px; overflow:hidden; position:relative; scroll-snap-align:start;
-      /* fade in base */
-      opacity:0; transform: translateY(14px);
-      transition: opacity .6s ease, transform .6s ease;
+      opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease;
     }
     .hcard.in{ opacity:1; transform:none }
-
     .poster{ aspect-ratio: 3/4; width:100%; object-fit:cover; display:block; filter:saturate(105%) }
-    /* placeholder poster block (no image required) */
     .poster.placeholder{
       display:grid; place-items:center; background:
         radial-gradient(1200px 600px at 70% -10%, #1a1a1e 5%, transparent 60%),
         linear-gradient(#0e0e12, #101015);
       color:#d5d5dd; text-transform:uppercase; letter-spacing:.5px;
-      font-weight:900; font-size: clamp(14px, 2vw, 18px);
+      font-family:var(--font-head);
+      font-weight:700; font-size: clamp(14px, 2vw, 18px);
     }
 
     .overlay-title{
@@ -129,16 +136,23 @@
       background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0));
       opacity:0; transition:opacity .3s ease; padding:10px; text-align:center;
     }
-    .overlay-title h4{ margin:0 0 6px; font-size: clamp(14px, 1.8vw, 18px); color:#fff; text-shadow:0 2px 6px rgb(0 0 0 / 50%) }
+    .overlay-title h4{
+      margin:0 0 6px; font-size: clamp(14px, 1.8vw, 18px); color:#fff;
+      text-shadow:0 2px 6px rgb(0 0 0 / 50%); font-family:var(--font-head); letter-spacing:.5px; text-transform:uppercase;
+    }
     .hcard:hover .overlay-title, .hcard:focus-within .overlay-title{ opacity:1 }
 
     .card-body{ padding:10px 12px }
-    .hcard h3{ margin:8px 0 2px; font-size: clamp(13px, 1.6vw, 17px) }
+    .hcard h3{
+      margin:8px 0 2px; font-size: clamp(13px, 1.6vw, 17px);
+      font-family:var(--font-head); text-transform:uppercase; letter-spacing:.5px; font-weight:600;
+    }
     .meta{ color:var(--muted); font-size:11px }
     .tag{
       display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.3px;
       text-transform:uppercase; color:#f3f3f6; background:#1e1e22;
       border:1px solid rgb(255 255 255 / 10%); border-radius:999px; padding:6px 10px;
+      font-family:var(--font-head); letter-spacing:.6px;
     }
     .tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent)}
 
@@ -167,6 +181,7 @@
     .social{display:flex; gap:16px}
     .social a{opacity:.85}
     .social a:hover{opacity:1}
+    .footer-logo{height:30px; border-radius:4px; margin-right:8px; vertical-align:middle}
 
     /* Embed */
     .embed-16x9{position:relative; width:100%; aspect-ratio:16/9; border-radius:18px; overflow:hidden; border:1px solid rgb(255 255 255 / 8%); background:#000}
@@ -177,8 +192,8 @@
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#home" aria-label="IronCliff Productions home">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>IronCliff Productions</span>
+        <img src="posters/1566F9C5-54D0-40CE-A9AC-74ACF667460A.png" alt="IronCliff Productions Logo">
+        <span class="brand-name">IRONCLIFF PRODUCTIONS</span>
       </a>
       <nav class="nav-menu" aria-label="Primary">
         <a href="#slate">Slate</a>
@@ -193,8 +208,8 @@
     <video autoplay muted playsinline loop poster="https://images.unsplash.com/photo-1596461404969-9ae70d1b54fc?q=80&w=1600&auto=format&fit=crop" aria-hidden="true"></video>
     <div class="scrim" aria-hidden="true"></div>
     <div class="hero-inner container">
-      <h1 class="hero-title">Bold stories. Sharp edges.</h1>
-      <p class="hero-sub">IronCliff produces elevated genre and character driven work across film, television, and digital. We develop original IP and collaborate with distinctive voices to create culturally resonant worlds.</p>
+      <h1 class="hero-title">Bold Stories. Sharp Edges.</h1>
+      <p class="hero-sub">IronCliff produces elevated, character-driven genre work across film, television, and digital. We develop original IP and collaborate with distinctive voices to create culturally resonant worlds.</p>
       <div class="hero-cta">
         <a class="btn primary" href="#slate">Explore Slate</a>
         <a class="btn" href="#trailer">Watch Teaser</a>
@@ -318,7 +333,10 @@
 
   <footer>
     <div class="container footer-grid">
-      <div>© <span id="year"></span> IronCliff Productions</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <img src="posters/1566F9C5-54D0-40CE-A9AC-74ACF667460A.png" alt="IronCliff Logo" class="footer-logo">
+        © <span id="year"></span> IronCliff Productions
+      </div>
       <div class="social">
         <a href="https://instagram.com" aria-label="Instagram">Instagram</a>
         <a href="https://youtube.com" aria-label="YouTube">YouTube</a>
@@ -328,10 +346,10 @@
   </footer>
 
   <script>
-    // year
+    // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // horizontal scroll arrows
+    // Horizontal scroll
     const scroller = document.getElementById('slateScroll');
     const leftBtn = document.querySelector('.arrow.left');
     const rightBtn = document.querySelector('.arrow.right');
@@ -339,7 +357,7 @@
     leftBtn.addEventListener('click', () => scroller.scrollBy({left: -step(), behavior:'smooth'}));
     rightBtn.addEventListener('click', () => scroller.scrollBy({left:  step(), behavior:'smooth'}));
 
-    // fade-in on scroll for cards
+    // Fade-in on scroll for cards
     const cards = document.querySelectorAll('.hcard');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -348,8 +366,7 @@
           io.unobserve(e.target);
         }
       });
-    }, { root: document.querySelector('#slateScroll'), rootMargin: '0px 40px', threshold: 0.15 });
-
+    }, { root: scroller, rootMargin: '0px 40px', threshold: 0.15 });
     cards.forEach(c => io.observe(c));
   </script>
 </body>
