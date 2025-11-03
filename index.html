@@ -5,66 +5,279 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>IronCliff Productions</title>
   <meta name="description" content="IronCliff Productions — film, television, and digital. Visionary stories with a sharp edge." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <!-- YZY font: replace the src URLs with your hosted files (recommended woff2). Keep fallbacks. -->
+  <style>
+    @font-face{
+      font-family: 'YZY';
+      src: url('/fonts/YZY.woff2') format('woff2'); /* TODO: replace with your font URL */
+      font-weight: 300 900;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0b0b0c;
-      --fg:#e9e9ee;
+      --bg:#0b0b0c; /* deep charcoal */
+      --fg:#e9e9ee; /* soft off white */
       --muted:#9a9aa2;
-      --accent:#c52d2d;
+      --accent:#c52d2d; /* iron red */
       --card:#111113;
       --grid-gap: clamp(14px, 1.8vw, 22px);
       --maxw: 1200px;
     }
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--fg);font-family:Inter, sans-serif;}
-    a{color:inherit;text-decoration:none}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family: YZY, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      line-height:1.5; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
 
-    .hscroll{display:flex;gap:var(--grid-gap);overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-    .hcard{flex:0 0 auto;width:clamp(160px,22vw,260px);background:var(--card);border:1px solid rgb(255 255 255 / 7%);border-radius:16px;overflow:hidden;position:relative;scroll-snap-align:start}
-    .poster{aspect-ratio:3/4;width:100%;object-fit:cover;display:block;filter:saturate(105%)}
+    /* Header */
+    .site-header{ position:sticky; top:0; z-index:40; backdrop-filter: blur(8px);
+      background: rgb(11 11 12 / 70%); border-bottom: 1px solid rgb(255 255 255 / 6%); }
+    .container{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 18px}
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:0.6px}
+    .brand-mark{ width:28px; height:28px; border-radius:6px; background:linear-gradient(135deg, #2b2b31, #0f0f12); position:relative; overflow:hidden; border:1px solid rgb(255 255 255 / 8%); }
+    .brand-mark:before{content:""; position:absolute; inset:5px; border:2px solid var(--accent); border-radius:4px}
+    .brand span{font-weight:800; font-size:18px}
+    .nav a{opacity:.9}
+    .nav a:hover{opacity:1}
+    .nav-menu{display:flex; gap:18px; font-weight:700}
+
+    /* Hero */
+    .hero{ position:relative; min-height:68svh; display:grid; place-items:end start; isolation:isolate;
+      border-bottom: 1px solid rgb(255 255 255 / 8%);
+      background: radial-gradient(1200px 600px at 70% -10%, #1a1a1e 5%, transparent 60%),
+                  radial-gradient(1200px 600px at 0% 100%, #101013 0%, transparent 60%),
+                  linear-gradient(#0b0b0c, #0b0b0c); overflow:hidden; }
+    .hero video, .hero img.bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.35; filter:contrast(115%) saturate(105%); }
+    .hero .scrim{position:absolute; inset:0; background:linear-gradient(to top, rgb(11 11 12 / 70%), rgb(11 11 12 / 10%));}
+    .hero-inner{position:relative; padding: clamp(48px, 8vw, 96px) 18px; width:100%;}
+    .hero-title{ max-width: 12ch; font-weight:900; line-height:.95; font-size: clamp(42px, 9vw, 92px); letter-spacing: -0.5px; text-shadow: 0 2px 24px rgb(0 0 0 / 55%); }
+    .hero-sub{max-width: 52ch; margin-top: 16px; color:var(--muted); font-weight:500}
+    .hero-cta{margin-top: 28px; display:flex; gap:12px; flex-wrap:wrap}
+    .btn{ padding: 12px 16px; border-radius: 999px; font-weight:800; border:1px solid rgb(255 255 255 / 12%);
+      background: linear-gradient(180deg, #1a1a1e, #121216); box-shadow: 0 6px 24px rgb(0 0 0 / 35%); }
+    .btn.primary{background:linear-gradient(180deg, #d63b3b, #9b1f1f); border-color:#000;}
+
+    /* Sections */
+    .section{padding: clamp(42px, 6vw, 80px) 0;}
+    .section h2{font-weight:900; letter-spacing:.2px; font-size: clamp(26px, 4.5vw, 44px); margin:0 0 18px}
+    .section p.lead{color:var(--muted); margin:0 0 24px}
+
+    /* Horizontal scroll slate */
+    .scroll-wrap{ position:relative; }
+    .hscroll{ display:flex; gap:var(--grid-gap); overflow-x:auto; padding: 6px 6px 12px; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch }
+    .hscroll:focus-visible{ outline:2px solid var(--accent); outline-offset:4px }
+    .hscroll::-webkit-scrollbar{height:10px}
+    .hscroll::-webkit-scrollbar-thumb{background:#1f1f24; border-radius:10px}
+    .hscroll::-webkit-scrollbar-track{background:#0e0e12}
+
+    .hcard{ flex:0 0 auto; width: clamp(140px, 18vw, 220px); background: var(--card); border:1px solid rgb(255 255 255 / 7%); border-radius: 16px; overflow:hidden; position:relative; scroll-snap-align:start }
+    .poster{ aspect-ratio: 3/4; width:100%; object-fit:cover; display:block; filter:saturate(105%) }
+    .card-body{ padding:10px 12px }
+    .hcard h3{ margin:8px 0 2px; font-size: clamp(13px, 1.6vw, 17px) }
+    .tag{ display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:.3px; text-transform:uppercase; color:#f3f3f6; background:#1e1e22; border:1px solid rgb(255 255 255 / 10%); border-radius:999px; padding:6px 10px }
+    .tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--accent)}
+    .meta{ color:var(--muted); font-size:11px }
 
     /* Hover title overlay */
-    .overlay-title{
-      position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
-      background:linear-gradient(to top,rgba(0,0,0,0.7),rgba(0,0,0,0));
-      opacity:0;transition:opacity 0.3s ease;
-      padding-bottom:10px;text-align:center;
-    }
-    .overlay-title h3{
-      font-family:"Playfair Display",serif;font-size:1rem;margin:0;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,0.5);
-    }
-    .hcard:hover .overlay-title{opacity:1}
+    .overlay-title{ position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center; background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0)); opacity:0; transition:opacity .3s ease; padding:10px; text-align:center }
+    .overlay-title h4{ margin:0; font-size: clamp(14px, 1.8vw, 18px); color:#fff; text-shadow:0 2px 6px rgb(0 0 0 / 50%) }
+    .hcard:hover .overlay-title, .hcard:focus-within .overlay-title{ opacity:1 }
+
+    /* Arrows */
+    .arrow{ position:absolute; top:50%; transform:translateY(-50%); z-index:2; border:1px solid rgb(255 255 255 / 12%);
+      background:linear-gradient(180deg,#1a1a1e,#121216); color:#e9e9ee; width:38px; height:38px; border-radius:50%; display:grid; place-items:center; font-size:22px; cursor:pointer; opacity:.9 }
+    .arrow:hover{opacity:1}
+    .arrow.left{ left:-4px }
+    .arrow.right{ right:-4px }
+
+    /* About */
+    .about{display:grid; gap:var(--grid-gap); grid-template-columns: 1.2fr 2fr; align-items:start}
+    @media (max-width:900px){ .about{grid-template-columns: 1fr;}}
+    .about .panel{background:var(--card); border:1px solid rgb(255 255 255 / 7%); border-radius:18px; padding:22px}
+
+    /* Footer */
+    footer{ border-top:1px solid rgb(255 255 255 / 10%); color:var(--muted); font-size:14px; padding:18px 0 38px }
+    .footer-grid{display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center}
+    .social{display:flex; gap:16px}
+    .social a{opacity:.85}
+    .social a:hover{opacity:1}
+
+    /* Embed wrap for trailer */
+    .embed-16x9{position:relative; width:100%; aspect-ratio:16/9; border-radius:18px; overflow:hidden; border:1px solid rgb(255 255 255 / 8%); background:#000}
+    .embed-16x9 iframe{position:absolute; inset:0; width:100%; height:100%;}
   </style>
 </head>
 <body>
-  <section id="slate" class="section">
-    <div class="container">
-      <h2>Film and TV Slate</h2>
-      <p class="lead">Scroll horizontally to preview titles. Hover or tap to reveal names.</p>
-      <div class="hscroll" role="list">
-        <article class="hcard" role="listitem">
-          <a href="#">
-            <img class="poster" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Stream or Scream">
-            <div class="overlay-title"><h3>Stream or Scream</h3></div>
-          </a>
-        </article>
-        <article class="hcard" role="listitem">
-          <a href="#">
-            <img class="poster" src="https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1200&auto=format&fit=crop" alt="IronCliff Originals">
-            <div class="overlay-title"><h3>IronCliff Originals</h3></div>
-          </a>
-        </article>
-        <article class="hcard" role="listitem">
-          <a href="#">
-            <img class="poster" src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop" alt="Untitled Feature">
-            <div class="overlay-title"><h3>Untitled Feature</h3></div>
-          </a>
-        </article>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="IronCliff Productions home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>IronCliff Productions</span>
+      </a>
+      <nav class="nav-menu" aria-label="Primary">
+        <a href="#slate">Slate</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero" aria-label="Hero">
+    <video autoplay muted playsinline loop poster="https://images.unsplash.com/photo-1596461404969-9ae70d1b54fc?q=80&w=1600&auto=format&fit=crop" aria-hidden="true">
+      <source src="" type="video/mp4" />
+    </video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="hero-inner container">
+      <h1 class="hero-title">Bold stories. Sharp edges.</h1>
+      <p class="hero-sub">IronCliff produces elevated genre and character driven work across film, television, and digital. We develop original IP and collaborate with distinctive voices to create culturally resonant worlds.</p>
+      <div class="hero-cta">
+        <a class="btn primary" href="#slate">Explore Slate</a>
+        <a class="btn" href="#trailer">Watch Teaser</a>
       </div>
     </div>
   </section>
+
+  <main>
+    <!-- Teaser / Trailer -->
+    <section id="trailer" class="section">
+      <div class="container">
+        <h2>Teaser</h2>
+        <p class="lead">Play the latest IronCliff teaser. Auto play is muted by default on most browsers.</p>
+        <div class="embed-16x9">
+          <iframe src="https://www.youtube.com/embed/KgnhMDJJ9eY?autoplay=1&mute=1&controls=0&modestbranding=1&rel=0&playsinline=1" title="Stream or Scream Teaser" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slate / Projects -->
+    <section id="slate" class="section">
+      <div class="container">
+        <h2>Film and TV Slate</h2>
+        <p class="lead">Swipe or scroll horizontally to preview — tap any title for details.</p>
+
+        <div class="scroll-wrap">
+          <button class="arrow left" aria-label="Scroll left">‹</button>
+          <div class="hscroll" id="slateScroll" role="list" aria-label="Upcoming projects">
+            <!-- Card 1 -->
+            <article class="hcard" role="listitem">
+              <a href="#" aria-label="Open Stream or Scream project">
+                <img class="poster" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Stream or Scream key art placeholder" />
+                <div class="overlay-title"><h4>Stream or Scream</h4></div>
+              </a>
+              <div class="card-body">
+                <span class="tag">In Post</span>
+                <h3>Stream or Scream</h3>
+                <div class="meta">Short film · Written & directed by Manajorie Murry</div>
+              </div>
+            </article>
+            <!-- Card 2 -->
+            <article class="hcard" role="listitem">
+              <a href="#" aria-label="Open IronCliff Originals project">
+                <img class="poster" src="https://images.unsplash.com/photo-1524253482453-3fed8d2fe12b?q=80&w=1200&auto=format&fit=crop" alt="IronCliff Originals placeholder" />
+                <div class="overlay-title"><h4>IronCliff Originals</h4></div>
+              </a>
+              <div class="card-body">
+                <span class="tag">Development</span>
+                <h3>IronCliff Originals</h3>
+                <div class="meta">Limited series · Elevated supernatural thriller</div>
+              </div>
+            </article>
+            <!-- Card 3 -->
+            <article class="hcard" role="listitem">
+              <a href="#" aria-label="Open Untitled Feature project">
+                <img class="poster" src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop" alt="Untitled Feature placeholder" />
+                <div class="overlay-title"><h4>Untitled Feature</h4></div>
+              </a>
+              <div class="card-body">
+                <span class="tag">Coming Soon</span>
+                <h3>Untitled Feature</h3>
+                <div class="meta">Feature film · Psychological horror</div>
+              </div>
+            </article>
+          </div>
+          <button class="arrow right" aria-label="Scroll right">›</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="container about">
+        <div class="panel">
+          <h2>About IronCliff</h2>
+          <p>Founded by creator and entrepreneur Eme “Benji” Matthew, IronCliff Productions develops and produces bold, culturally driven stories that move the conversation forward. We champion distinct filmmakers and craft across production, post, and emerging tools to deliver unforgettable genre work.</p>
+        </div>
+        <div class="panel">
+          <h2>Access and Press</h2>
+          <p class="lead">For screeners, festivals, and brand partnerships contact the team below.</p>
+          <ul>
+            <li>General · <a href="mailto:digitaldonacademy@gmail.com">digitaldonacademy@gmail.com</a></li>
+            <li>Screeners · <a href="mailto:digitaldonacademy@gmail.com">digitaldonacademy@gmail.com</a></li>
+            <li>Press · <a href="mailto:digitaldonacademy@gmail.com">digitaldonacademy@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <p class="lead">Have a project, festival, or collaboration in mind? Reach out to IronCliff.</p>
+        <div class="about">
+          <div class="panel">
+            <form action="https://formspree.io/f/your-id" method="POST">
+              <label for="name">Name</label><br>
+              <input id="name" name="name" required style="width:100%;padding:12px;border-radius:10px;border:1px solid rgb(255 255 255 / 12%);background:#0f0f12;color:var(--fg);margin:6px 0 14px">
+              <label for="email">Email</label><br>
+              <input id="email" type="email" name="email" required style="width:100%;padding:12px;border-radius:10px;border:1px solid rgb(255 255 255 / 12%);background:#0f0f12;color:var(--fg);margin:6px 0 14px">
+              <label for="msg">Message</label><br>
+              <textarea id="msg" name="message" rows="5" required style="width:100%;padding:12px;border-radius:10px;border:1px solid rgb(255 255 255 / 12%);background:#0f0f12;color:var(--fg);margin:6px 0 14px"></textarea>
+              <button class="btn primary" type="submit">Send</button>
+            </form>
+          </div>
+          <div class="panel">
+            <h3 style="margin-top:0">Headquarters</h3>
+            <p>Atlanta and New York</p>
+            <h3>Representation</h3>
+            <p>Available upon request</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>© <span id="year"></span> IronCliff Productions</div>
+      <div class="social">
+        <a href="https://instagram.com" aria-label="Instagram">Instagram</a>
+        <a href="https://youtube.com" aria-label="YouTube">YouTube</a>
+        <a href="https://x.com" aria-label="X">X</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Horizontal scroll buttons
+    const scroller = document.getElementById('slateScroll');
+    const leftBtn = document.querySelector('.arrow.left');
+    const rightBtn = document.querySelector('.arrow.right');
+    const step = () => Math.max(scroller.clientWidth * 0.8, 260);
+    leftBtn.addEventListener('click', () => scroller.scrollBy({left: -step(), behavior:'smooth'}));
+    rightBtn.addEventListener('click', () => scroller.scrollBy({left:  step(), behavior:'smooth'}));
+  </script>
 </body>
 </html>
